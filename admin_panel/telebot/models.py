@@ -1,13 +1,14 @@
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User = get_user_model()
 
+
 # python django_app.py makemigrations
 # python django_app.py migrate
 
 class CreateModel(models.Model):
-
     created = models.DateTimeField(
         verbose_name='Дата создания',
         auto_now_add=True
@@ -61,3 +62,42 @@ class Users(CreateModel):
         help_text="Список всех мемов пользователя",
         verbose_name="мемы"
     )
+
+
+class Memes(models.Model):
+    photo_id = models.CharField(
+        max_length=10000,
+        null=True,
+        help_text='ID Фотографии',
+        verbose_name='ID Фотографии'
+    )
+
+    user = models.ForeignKey(
+        Users,
+        on_delete=models.CASCADE,
+        related_name='user_id',
+        blank=True,
+        null=True,
+        help_text='Пользователь',
+        verbose_name='Пользователь'
+    )
+
+
+class Favorites(models.Model):
+    photo_id = models.CharField(
+        max_length=10000,
+        null=True,
+        help_text='ID Фотографии',
+        verbose_name='ID Фотографии'
+    )
+
+    user = models.ForeignKey(
+        Users,
+        on_delete=models.CASCADE,
+        related_name='user_id_favorites',
+        blank=True,
+        null=True,
+        help_text='Пользователь',
+        verbose_name='Пользователь'
+    )
+

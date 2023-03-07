@@ -20,3 +20,4 @@ async def settings_keyboard(status):
     keyboard.add(InlineKeyboardButton(text='<< Вернуться', callback_data='returnto_infomenu'))
 
     return keyboard
+

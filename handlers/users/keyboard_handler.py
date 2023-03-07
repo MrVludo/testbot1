@@ -19,6 +19,12 @@ async def start_menu(call: types.CallbackQuery):
     await call.message.edit_text('Менюшка', reply_markup=menu)
 
 
+@dp.callback_query_handler(Text(equals='del_returntomenu'))
+async def start_menu(call: types.CallbackQuery):
+    await call.message.delete()
+    await call.message.answer('Менюшка', reply_markup=menu)
+
+
 # Замена никнейма:
 
 @dp.callback_query_handler(Text(equals='change_name'))
@@ -153,6 +159,3 @@ async def start_panel(call: types.CallbackQuery, state: FSMContext):
     await call.message.edit_text(f'Ваш никнейм: {"Отсутствует" if user.nickname is None else user.nickname}\n'
                                  f'Ваше описание: {"Отсутствует" if user.description is None else user.description}',
                                  reply_markup=info_panel)
-
-
-
